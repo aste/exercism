@@ -1,15 +1,15 @@
-// This is only a SKELETON file for the 'Robot Name' exercise. It's been
-// provided as a convenience to get your started writing code faster.
+const numberOfLetters = 2;
+const numberOfNumbers = 3;
 
 export class Robot {
   static usedNames = new Set();
 
   // constructor, setting the initial private state of an instance of the Robot Class
   constructor() {
-    this._name = this.getUniqueName();
+    this._name = this._getUniqueName();
   }
 
-  generateRandomName(numberOfLetters, numberOfNumbers) {
+  _generateRandomName(numberOfLetters, numberOfNumbers) {
     const upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let randomName = "";
 
@@ -25,11 +25,11 @@ export class Robot {
     return randomName;
   }
 
-  getUniqueName() {
+  _getUniqueName() {
     let uniqueName;
 
     do {
-      uniqueName = this.generateRandomName(2, 3);
+      uniqueName = this._generateRandomName(numberOfLetters, numberOfNumbers);
     } while (Robot.usedNames.has(uniqueName));
 
     Robot.usedNames.add(uniqueName);
@@ -38,7 +38,7 @@ export class Robot {
   }
 
   reset() {
-    this._name = this.getUniqueName();
+    this._name = this._getUniqueName();
   }
 
   get name() {
