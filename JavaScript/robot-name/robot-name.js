@@ -6,7 +6,7 @@ export class Robot {
 
   // constructor, setting the initial private state of an instance of the Robot Class
   constructor() {
-    this._name = this._getUniqueName();
+    this.reset()
   }
 
   _generateRandomName(numberOfLetters, numberOfNumbers) {

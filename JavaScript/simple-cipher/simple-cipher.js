@@ -6,25 +6,21 @@
 import { text } from "node:stream/consumers";
 
 export class Cipher {
+  static alphabet = "abcdefghijklmnopqrstuvwxyz";
+
   constructor(key) {
     this.initializeKey(key);
   }
 
-  static alphabet = "abcdefghijklmnopqrstuvwxyz";
-
-  _randomLetter() {
+  randomLetter() {
     return Cipher.alphabet[Math.floor(Math.random() * 26)];
   }
 
   initializeKey(value) {
-    if (typeof value == "string") {
-      this._key = value.toLowerCase();
-    } else {
-      this._key = "";
-      for (let i = 0; i < 100; i++) {
-        this._key += this._randomLetter();
-      }
-    }
+    this._key =
+      typeof value === "string"
+        ? value.toLowerCase()
+        : Array.from({ length: 100 }, () => this.randomLetter()).join("");
   }
 
   get key() {
@@ -33,26 +29,24 @@ export class Cipher {
 
   encode(inputText) {
     let encodedText = "";
-    let i = 0;
-    while (inputText[i] != undefined) {
-      let inputCharIndex = Cipher.alphabet.indexOf(inputText[i]);
-      let keyCharIndex = Cipher.alphabet.indexOf(this.key[i % this.key.length]);
-      let cipheredIndex = (inputCharIndex + keyCharIndex) % 26;
+    for (let i = 0; i < inputText.length; i++) {
+      const char = inputText[i];
+      const inputCharIndex = Cipher.alphabet.indexOf(char);
+      const keyCharIndex = Cipher.alphabet.indexOf(this.key[i % this.key.length]);
+      const cipheredIndex = (inputCharIndex + keyCharIndex) % 26;
       encodedText += Cipher.alphabet[cipheredIndex];
-      i += 1;
     }
     return encodedText;
   }
 
   decode(encodedText) {
     let decodedText = "";
-    let i = 0;
-    while (encodedText[i] != undefined) {
-      let inputCharIndex = Cipher.alphabet.indexOf(encodedText[i]);
-      let keyCharIndex = Cipher.alphabet.indexOf(this.key[i % this.key.length]);
-      let cipheredIndex = (inputCharIndex - keyCharIndex + 26) % 26;
+    for (let i = 0; i < encodedText.length; i++) {
+      const char = encodedText[i];
+      const inputCharIndex = Cipher.alphabet.indexOf(char);
+      const keyCharIndex = Cipher.alphabet.indexOf(this.key[i % this.key.length]);
+      const cipheredIndex = (inputCharIndex - keyCharIndex + 26) % 26;
       decodedText += Cipher.alphabet[cipheredIndex];
-      i += 1;
     }
     return decodedText;
   }
