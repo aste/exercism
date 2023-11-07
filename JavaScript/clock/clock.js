@@ -1,27 +1,40 @@
-//
-// This is only a SKELETON file for the 'Clock' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
 export class Clock {
+  dailyMin = 24 * 60;
+
   constructor(hr, min) {
-    this.hr = hr;
-    this.min = min;
+    !isNaN(hr) ? (this.hr = hr) : (this.hr = 0);
+    !isNaN(min) ? (this.min = min) : (this.min = 0);
+    this.totalTimeMin = this.hr * 60 + this.min;
+    this.updateTime();
+  }
+
+  updateTime() {
+    this.daytimeMin = ((this.totalTimeMin % this.dailyMin) + this.dailyMin) % this.dailyMin;
+    this.currentHourStr = Math.floor(this.daytimeMin / 60)
+      .toString()
+      .padStart(2, "0");
+    this.currentMinStr = (this.daytimeMin % 60).toString().padStart(2, "0");
   }
 
   toString() {
-    throw new Error("Remove this statement and implement this function");
+    return `${this.currentHourStr}:${this.currentMinStr}`;
   }
 
-  plus() {
-    throw new Error("Remove this statement and implement this function");
+  plus(minutesAdded) {
+    this.totalTimeMin += minutesAdded;
+    this.updateTime();
+    return this;
   }
 
-  minus() {
-    throw new Error("Remove this statement and implement this function");
+  minus(minutesSubtracted) {
+    this.totalTimeMin -= minutesSubtracted;
+    this.updateTime();
+    return this;
   }
 
-  equals() {
-    throw new Error("Remove this statement and implement this function");
+  equals(clockObjToCompareAgainst) {
+    this.updateTime();
+    clockObjToCompareAgainst.updateTime();
+    return this.daytimeMin === clockObjToCompareAgainst.daytimeMin;
   }
 }
