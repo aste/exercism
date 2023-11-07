@@ -1,0 +1,35 @@
+{
+  "authors": [
+    "matthewmorgan"
+  ],
+  "contributors": [
+    "ankorGH",
+    "ovidiu141",
+    "rchavarria",
+    "ryanplusplus",
+    "SleeplessByte",
+    "tejasbubane",
+    "Tyresius92",
+    "xarxziux"
+  ],
+  "files": {
+    "solution": [
+      "clock.js"
+    ],
+    "test": [
+      "clock.spec.js"
+    ],
+    "example": [
+      ".meta/proof.ci.js"
+    ]
+  },
+  "blurb": "Implement a clock that handles times without dates.",
+  "source": "Pairing session with Erin Drummond",
+  "source_url": "https://twitter.com/ebdrummond",
+  "custom": {
+    "version.tests.compatibility": "jest-27",
+    "flag.tests.task-per-describe": false,
+    "flag.tests.may-run-long": false,
+    "flag.tests.includes-optional": false
+  }
+}
